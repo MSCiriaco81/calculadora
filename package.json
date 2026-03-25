@@ -1,0 +1,23 @@
+{
+  "name": "calculadora",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/calculator.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "jest --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MSCiriaco81/calculadora.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MSCiriaco81/calculadora/issues"
+  },
+  "homepage": "https://github.com/MSCiriaco81/calculadora#readme"
+}
