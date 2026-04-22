@@ -112,7 +112,7 @@ jobs:
         run: docker compose up -d
 
       - name: validar comunicação (ping)
-        rum: docker compose run -T calculadora-app ping -c 1 servico-vizinho
+        run: docker compose run -T calculadora-app ping -c 1 servico-vizinho
 
       - name: rodar testes unitarios
         run: docker compose run -T calculadora-app npm test
