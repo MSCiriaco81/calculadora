@@ -1,0 +1,10 @@
+services:
+  calculadora-app:
+    build: .
+    image: msciriaco81/calculadora:latest
+
+  servico-vizinho:
+    image: alpine
+    command: sleep infinity
+
+  

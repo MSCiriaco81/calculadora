@@ -85,35 +85,37 @@ jobs:
     needs: quality
 
     steps:
-      - name: Checkout código
+      - name: checkout do codigo
         uses: actions/checkout@v4
 
       - name: Login no Docker Hub
         uses: docker/login-action@v3
         with:
-          username: ${{ secrets.DOCKER_USER }}
-          password: ${{ secrets.DOCKER_PASS }}
+          username: ${{ secrets.DOCKER_USER}}
+          password: ${{ secrets.DOCKER_PASS}}
 
-      - name: Build e Push da Imagem
-        uses: docker/build-push-action@v5
-        with: 
-          context: .
-          push: true
-          tags: ${{ secrets.DOCKER_USER }}/pipeline-ci:latest
+      - name: Build com Docker Compose
+        run: docker compose build
+
+      - name: Push com Docker Compose
+        run: docker compose push
 
   test:
     needs: build
     runs-on: ubuntu-latest
 
     steps:
-      - name: Login no Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKER_USER }}
-          password: ${{ secrets.DOCKER_PASS }}
+      - name: checkout do codigo
+        uses: actions/checkout@v4
 
-      - name: Rodar testes dentro do Container
-        run: docker run ${{ secrets.DOCKER_USER }}/pipeline-ci:latest npm test
+      - name: Subir ambiente de teste
+        run: docker compose up -d
+
+      - name: validar comunicação (ping)
+        rum: docker compose run -T calculadora-app ping -c 1 servico-vizinho
+
+      - name: rodar testes unitarios
+        run: docker compose run -T calculadora-app npm test
 
   deploy: 
     runs-on: ubuntu-latest
